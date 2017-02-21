@@ -15,6 +15,8 @@ import java.util.Properties;
 
 import org.omg.CosNaming.NamingContextExtPackage.AddressHelper;
 
+import socketpackage.CommonAttribute;
+
 public class DataConnection {
 	
 	private Connection _conn=null;
@@ -91,13 +93,19 @@ public class DataConnection {
 		System.out.println("connection released successfully.");
 	}
     
-  public boolean insertData(String addr,EvidenceData data)
+  public boolean insertData(EvidenceData data)
   {
 	  //向filterd的地址列表中分别插入数据
 	  try{
-		  ArrayList<Connection> targetAddrArrayList=filterAddr(addr);
+		  ArrayList<Connection> targetAddrArrayList=filterAddr(CommonAttribute.hostipString);
 		  for (Connection connection : targetAddrArrayList) {
-			String sql="insert into EvidenceTable values("+"\'"+data.contentString+"\'"+","+"\'"+data.simhaString+"\'"+","+"\'"+data.idString+"\'"+")";
+			String sql="insert into EvidenceTable values("+"\'"+
+		  data.idString+"\'"+","+"\'"+
+		  data.eventtimeTimestamp+"\'"+","+"\'"+
+					data.owner_node+"\'"+","+"\'"+
+		  data.oper_type+"\'"+","+"\'"+
+					data.simhaString+"\'"+","+"\'"+
+		  data.contentString+"\'"+","+"\'"+data.remark+"\'"+")";
 			Statement statement=connection.createStatement();
 			statement.execute(sql);
 		}

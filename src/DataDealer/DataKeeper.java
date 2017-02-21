@@ -114,7 +114,7 @@ public class DataKeeper {
             	   data.idString=dataStrings[0];
             	   data.contentString=dataStrings[1];
             	   data=DataDealerTool.getsimHash(data);
-           	    if(connection.insertData(addr, data))
+           	    if(connection.insertData(data))
            	    {
            	    	//System.out.println("inserted 1 row.");
            	    	line++;
